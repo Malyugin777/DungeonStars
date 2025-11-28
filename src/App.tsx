@@ -129,8 +129,6 @@ const SKIN_COLORS: Record<SkinTone, string> = {
   dark: '#8c5a3c',
 }
 
-
-
 /* --------- ЭКРАН СОЗДАНИЯ ПЕРСОНАЖА --------- */
 
 function CharacterCreationScreen({
@@ -263,9 +261,7 @@ function CharacterScreen({
   lastResult: BattleResult | null
 }) {
   const cls = CLASS_CONFIG[character.classKey]
-
-  const sprite =
-    CLASS_SPRITES[character.classKey][character.gender]
+  const sprite = CLASS_SPRITES[character.classKey][character.gender]
 
   return (
     <div className="screen">
@@ -313,10 +309,8 @@ function BattleScreen({
   const playerStats = CLASS_STATS[character.classKey]
   const enemyStats = CLASS_STATS[enemyClassKey]
 
-  const playerSprite =
-    CLASS_SPRITES[character.classKey][character.gender]
-  const enemySprite =
-    CLASS_SPRITES[enemyClassKey][enemyGender]
+  const playerSprite = CLASS_SPRITES[character.classKey][character.gender]
+  const enemySprite = CLASS_SPRITES[enemyClassKey][enemyGender]
 
   const [playerHP, setPlayerHP] = useState(playerStats.hp)
   const [enemyHP, setEnemyHP] = useState(enemyStats.hp)
@@ -342,7 +336,6 @@ function BattleScreen({
     attackerName: string,
     defenderName: string
   ): { newHP: number; text: string; damage: number; isCrit: boolean } {
-    // шанс, что защитник увернётся
     const evadeRoll = Math.random() * 100
     if (evadeRoll < defender.evade) {
       return {
@@ -353,14 +346,10 @@ function BattleScreen({
       }
     }
 
-    // базовый урон
     let dmg =
-      attacker.attack -
-      Math.round(defender.defense * 0.3) +
-      Math.random() * 4
+      attacker.attack - Math.round(defender.defense * 0.3) + Math.random() * 4
     if (dmg < 3) dmg = 3
 
-    // крит
     const critRoll = Math.random() * 100
     let isCrit = false
     if (critRoll < attacker.critChance) {
@@ -471,10 +460,7 @@ function BattleScreen({
             <img src={playerSprite} className="battle-avatar-img" />
           </div>
           <div className="battle-avatar enemy-avatar">
-            <img
-              src={enemySprite}
-              className="battle-avatar-img enemy-flip"
-            />
+            <img src={enemySprite} className="battle-avatar-img enemy-flip" />
           </div>
         </div>
 
@@ -606,7 +592,6 @@ function QuestsScreen() {
 }
 
 /* --------- КОРНЕВОЙ КОМПОНЕНТ --------- */
-/* --------- КОРНЕВОЙ КОМПОНЕНТ --------- */
 
 function App() {
   useEffect(() => {
@@ -617,7 +602,6 @@ function App() {
     tg.expand()
   }, [])
 
-  // Локальное состояние игры
   const [activeTab, setActiveTab] = useState<Tab>('home')
   const [character, setCharacter] = useState<CharacterAppearance | null>(null)
   const [isInBattle, setIsInBattle] = useState(false)
@@ -654,10 +638,7 @@ function App() {
             <>
               {activeTab === 'home' &&
                 (isInBattle ? (
-                  <BattleScreen
-                    character={character}
-                    onExit={handleBattleEnd}
-                  />
+                  <BattleScreen character={character} onExit={handleBattleEnd} />
                 ) : (
                   <CharacterScreen
                     character={character}
@@ -675,25 +656,19 @@ function App() {
         {character && !isInBattle && (
           <nav className="bottom-nav">
             <button
-              className={`nav-button ${
-                activeTab === 'home' ? 'active' : ''
-              }`}
+              className={`nav-button ${activeTab === 'home' ? 'active' : ''}`}
               onClick={() => setActiveTab('home')}
             >
               Бой
             </button>
             <button
-              className={`nav-button ${
-                activeTab === 'base' ? 'active' : ''
-              }`}
+              className={`nav-button ${activeTab === 'base' ? 'active' : ''}`}
               onClick={() => setActiveTab('base')}
             >
               Берлога
             </button>
             <button
-              className={`nav-button ${
-                activeTab === 'quests' ? 'active' : ''
-              }`}
+              className={`nav-button ${activeTab === 'quests' ? 'active' : ''}`}
               onClick={() => setActiveTab('quests')}
             >
               Задания
@@ -706,7 +681,6 @@ function App() {
 }
 
 export default App
-
 
 /* --------- ПОПАП РЕЗУЛЬТАТА БОЯ --------- */
 
@@ -769,16 +743,14 @@ function BattleResultModal({
           <div className="result-hero">
             <div className="result-hero-name">{playerName}</div>
             <div className="result-hero-stat">
-              Осталось HP:{' '}
-              {playerHpLeft > 0 ? playerHpLeft : 'Пал в бою'}
+              Осталось HP: {playerHpLeft > 0 ? playerHpLeft : 'Пал в бою'}
             </div>
           </div>
 
           <div className="result-hero">
             <div className="result-hero-name">{enemyName}</div>
             <div className="result-hero-stat">
-              Осталось HP:{' '}
-              {enemyHpLeft > 0 ? enemyHpLeft : 'Пал в бою'}
+              Осталось HP: {enemyHpLeft > 0 ? enemyHpLeft : 'Пал в бою'}
             </div>
           </div>
         </div>
@@ -786,13 +758,9 @@ function BattleResultModal({
         <div className="result-summary">Ходов: {roundsCount}</div>
 
         <div className="result-rewards">
+          <div>Монеты: {coinsChange >= 0 ? `+${coinsChange}` : coinsChange}</div>
           <div>
-            Монеты:{' '}
-            {coinsChange >= 0 ? `+${coinsChange}` : coinsChange}
-          </div>
-          <div>
-            Рейтинг:{' '}
-            {ratingChange >= 0 ? `+${ratingChange}` : ratingChange}
+            Рейтинг: {ratingChange >= 0 ? `+${ratingChange}` : ratingChange}
           </div>
         </div>
 
