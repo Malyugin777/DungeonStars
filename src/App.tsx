@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getWebApp } from './telegram'
+import { getWebApp } from './tg-webapp'
 import './App.css'
 import mageMale from './assets/chars/mage_male.png'
 import archerMale from './assets/chars/archer_male.png'
@@ -610,8 +610,19 @@ function QuestsScreen() {
 }
 
 /* --------- КОРНЕВОЙ КОМПОНЕНТ --------- */
+/* --------- КОРНЕВОЙ КОМПОНЕНТ --------- */
 
 function App() {
+  // Инициализация Telegram WebApp
+  useEffect(() => {
+    const tg = getWebApp()
+    if (!tg) return
+
+    tg.ready()
+    tg.expand()
+  }, [])
+
+  // Локальное состояние игры
   const [activeTab, setActiveTab] = useState<Tab>('home')
   const [character, setCharacter] = useState<CharacterAppearance | null>(null)
   const [isInBattle, setIsInBattle] = useState(false)
@@ -700,6 +711,7 @@ function App() {
 }
 
 export default App
+
 
 /* --------- ПОПАП РЕЗУЛЬТАТА БОЯ --------- */
 
