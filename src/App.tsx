@@ -129,11 +129,7 @@ const SKIN_COLORS: Record<SkinTone, string> = {
   dark: '#8c5a3c',
 }
 
-const HAIR_COLORS: Record<HairStyle, string> = {
-  short: '#3c2b20',
-  medium: '#2c1b40',
-  hood: '#2b2240',
-}
+
 
 /* --------- ЭКРАН СОЗДАНИЯ ПЕРСОНАЖА --------- */
 
@@ -613,7 +609,6 @@ function QuestsScreen() {
 /* --------- КОРНЕВОЙ КОМПОНЕНТ --------- */
 
 function App() {
-  // Инициализация Telegram WebApp
   useEffect(() => {
     const tg = getWebApp()
     if (!tg) return
